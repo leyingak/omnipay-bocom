@@ -42,6 +42,16 @@ class BocomDataResponse extends BaseDto implements ResponseContract
         return null;
     }
 
+    public function isSuccessful()
+    {
+        return $this->isBizSuccessful() && $this->isTradeSuccessful();
+    }
+
+    public function getData()
+    {
+        return $this->toArray();
+    }
+
     public function isBizSuccessful()
     {
         return Constants::RESPONSE_STATE_SUCCESS == $this->getBizState();
@@ -55,6 +65,26 @@ class BocomDataResponse extends BaseDto implements ResponseContract
         }
 
         return Constants::TRADE_RESPONSE_CODE_SUCCESS == $head->getResponseCode();
+    }
+
+    public function getErrCode()
+    {
+        $head = $this->getRspHead();
+        if (empty($head)) {
+            return $head->getResponseCode();
+        }
+
+        return '';
+    }
+
+    public function getMessage()
+    {
+        $head = $this->getRspHead();
+        if (empty($head)) {
+            return $head->getResponseMsg();
+        }
+
+        return '';
     }
 
     protected function schema()

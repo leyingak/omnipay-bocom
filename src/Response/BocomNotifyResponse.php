@@ -3,6 +3,7 @@
 namespace Omnipay\Bocom\Response;
 
 use Omnipay\Bocom\Common\Constants;
+use Omnipay\Bocom\Contract\NotifyResponseContract;
 use Omnipay\Bocom\Contract\ResponseContract;
 use Omnipay\Bocom\Domain\BaseDto;
 use Omnipay\Bocom\Request\AbstractH5Request;
@@ -17,7 +18,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
  * @method string getFeeType()
  *
  */
-class BocomNotifyResponse extends BaseDto implements ResponseContract
+class BocomNotifyResponse extends BaseDto implements ResponseContract, NotifyResponseContract
 {
 
     private $request;
@@ -44,6 +45,26 @@ class BocomNotifyResponse extends BaseDto implements ResponseContract
         return null;
     }
 
+    public function getData()
+    {
+        return $this->toArray();
+    }
+
+    public function getErrCode()
+    {
+        return '';
+    }
+
+    public function getMessage()
+    {
+        return '';
+    }
+
+    public function isSuccessful()
+    {
+        return $this->isBizSuccessful() && $this->isTradeSuccessful();
+    }
+
     public function isBizSuccessful()
     {
         return true;
@@ -52,6 +73,11 @@ class BocomNotifyResponse extends BaseDto implements ResponseContract
     public function isTradeSuccessful()
     {
         return Constants::BOCOM_NOTIFY_SUCCESS == $this->getTradeState();
+    }
+
+    public function isPaid()
+    {
+        return $this->isTradeSuccessful();
     }
 
     protected function schema()

@@ -24,7 +24,7 @@ class CompletePurchaseRequest extends AbstractH5Request
 
     public function sendData($data = [])
     {
-        return new BocomNotifyResponse($data);
+        return new BocomNotifyResponse($data, $this);
     }
 
     /**
