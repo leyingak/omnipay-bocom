@@ -1,0 +1,53 @@
+{
+  "name": "leyingak/omnipay-bocom",
+  "type": "library",
+  "description": "BoCom gateway for Omnipay payment processing library",
+  "keywords": [
+    "bocom",
+    "e-cny",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment",
+    "purchase",
+    "交通银行",
+    "数字人民币",
+    "sdk",
+    "无跳转支付",
+    "laravel"
+  ],
+  "homepage": "https://github.com/leyingak/omnipay-bocom",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Loki Else",
+      "email": "lyen.rowe@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Omnipay\\Bocom\\": "src/"
+    },
+    "files": [
+    ]
+  },
+  "require": {
+    "omnipay/common": "v3.0-alpha.1",
+    "php-http/guzzle6-adapter": "*",
+    "ext-json": "*",
+    "ext-openssl": "*",
+    "ext-mcrypt": "*"
+  },
+  "require-dev": {
+    "omnipay/tests": "^3.0",
+    "squizlabs/php_codesniffer": "3.*",
+    "http-interop/http-factory-guzzle": "^1.2",
+    "php-http/message-factory": "^1.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
