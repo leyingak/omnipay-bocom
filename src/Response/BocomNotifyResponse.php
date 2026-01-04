@@ -5,6 +5,8 @@ namespace Omnipay\Bocom\Response;
 use Omnipay\Bocom\Common\Constants;
 use Omnipay\Bocom\Contract\ResponseContract;
 use Omnipay\Bocom\Domain\BaseDto;
+use Omnipay\Bocom\Request\AbstractH5Request;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * @method bool getTradeState()
@@ -17,6 +19,30 @@ use Omnipay\Bocom\Domain\BaseDto;
  */
 class BocomNotifyResponse extends BaseDto implements ResponseContract
 {
+
+    private $request;
+
+    public function __construct($response, $request)
+    {
+        $this->request = $request;
+        parent::__construct($response);
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function getRequestData()
+    {
+        if ($this->request instanceof AbstractH5Request) {
+            try {
+                return $this->request->getData();
+            } catch (InvalidRequestException $ignored) {}
+        }
+
+        return null;
+    }
 
     public function isBizSuccessful()
     {
