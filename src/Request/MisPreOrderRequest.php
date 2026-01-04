@@ -18,6 +18,10 @@ class MisPreOrderRequest extends AbstractH5Request
     public function setRequestBody($data)
     {
         $data['mch_id'] = $this->getMchId();
+        if (isset($data['notify_url'])) {
+            $data['notify_url'] = $this->getAppId() . '@' .$data['notify_url'];
+        }
+        
         return parent::setRequestBody($data);
     }
 
