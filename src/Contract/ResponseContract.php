@@ -19,4 +19,6 @@ interface ResponseContract
 
     public function getRequestData();
 
+    public function isPaid();
+
 }

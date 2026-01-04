@@ -136,22 +136,31 @@ abstract class AbstractH5Request extends CommonAbstractRequest
         return $this->getParameter(Constants::REQUEST_BODY_KEY);
     }
 
+    abstract public function validFields();
+
+    /**
+     * @throws InvalidRequestException
+     */
     public function setRequestBody($data)
     {
         $traceNo = null;
-        $keys = [
-            'trace_no',
-            'out_trade_no',
-            'orig_trace_no',
-            'mcht_order_no',
-            'orig_mcht_order_no',
-        ];
-
+        $keys = ['trace_no', 'out_trade_no', 'orig_trace_no', 'mcht_order_no', 'orig_mcht_order_no'];
         foreach ($keys as $k) {
-            if (array_key_exists($k, $data)) {
+            if (isset($data[$k])) {
                 $traceNo = $data[$k];
                 break;
             }
+        }
+
+        $validFields = $this->validFields();
+        if (!empty($validFields) && is_array($validFields)) {
+            foreach ($validFields as $field => $required) {
+                if ($required && !isset($data[$field])) {
+                    throw new InvalidRequestException("The {$field} parameter is required");
+                }
+            }
+
+            $data = array_intersect_key($data, $validFields);
         }
 
         $item = [

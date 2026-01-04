@@ -32,10 +32,8 @@ class CompletePurchaseRequest extends AbstractH5Request
      */
     public function getData()
     {
-        $notifyStr = $this->getNotifyContent();
-
-        $notifyParams = ArrUtil::toArray($notifyStr);
-        $bizContentStr = $this->toBizContentStr($notifyStr);
+        $notifyParams = $this->getParameters();
+        $bizContentStr = $this->toBizContentStr($notifyParams);
 
         $passed = $this->bocomPublicKeyApi->verify($bizContentStr, $notifyParams['sign']);
         if (!$passed) {
@@ -51,11 +49,10 @@ class CompletePurchaseRequest extends AbstractH5Request
         return ArrUtil::toArray($plainText);
     }
 
-    private function toBizContentStr($jsonStr)
+    private function toBizContentStr($data)
     {
-        $data = json_decode($jsonStr, true);
         if (!is_array($data)) {
-            throw new InvalidArgumentException("Invalid notify JSON");
+            throw new InvalidArgumentException("Invalid notify data");
         }
 
         $keys = ['biz_content', 'msg_id', 'timestamp', 'encrypt_key'];
@@ -72,14 +69,9 @@ class CompletePurchaseRequest extends AbstractH5Request
         return implode(',', $parts);
     }
 
-    public function setNotifyContent($content)
+    public function validFields()
     {
-        return $this->setParameter('notify_content', $content);
-    }
-
-    public function getNotifyContent()
-    {
-        return $this->getParameter('notify_content');
+        return null;
     }
 
 }

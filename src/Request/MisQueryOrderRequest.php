@@ -21,4 +21,16 @@ class MisQueryOrderRequest extends AbstractH5Request
         return parent::setRequestBody($data);
     }
 
+    public function validFields()
+    {
+        return [
+            'trans_type'    => true,
+            'orig_trace_no' => false,
+            'sys_order_no'  => false,
+            'mcht_order_no' => false,
+            'mcht_id'       => true,
+            'partner_id'    => false,
+        ];
+    }
+
 }

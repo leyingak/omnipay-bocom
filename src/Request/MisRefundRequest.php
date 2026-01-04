@@ -21,4 +21,20 @@ class MisRefundRequest extends AbstractH5Request
         return parent::setRequestBody($data);
     }
 
+    public function validFields()
+    {
+        return [
+            'orig_trace_no'      => false,
+            'sys_order_no'       => false,
+            'orig_mcht_order_no' => false,
+            'refund_amount'      => true,
+            'mcht_id'            => true,
+            'refund_amount_type' => false,
+            'extend_info'        => false,
+            'mcht_order_no'      => false,
+            'notify_url'         => false,
+            'partner_id'         => false,
+        ];
+    }
+
 }

@@ -67,6 +67,12 @@ class BocomDataResponse extends BaseDto implements ResponseContract
         return Constants::TRADE_RESPONSE_CODE_SUCCESS == $head->getResponseCode();
     }
 
+    public function isPaid()
+    {
+        return $this->isTradeSuccessful();
+    }
+
+
     public function getErrCode()
     {
         $head = $this->getRspHead();

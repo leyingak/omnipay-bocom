@@ -3,7 +3,6 @@
 namespace Omnipay\Bocom\Response;
 
 use Omnipay\Bocom\Common\Constants;
-use Omnipay\Bocom\Contract\NotifyResponseContract;
 use Omnipay\Bocom\Contract\ResponseContract;
 use Omnipay\Bocom\Domain\BaseDto;
 use Omnipay\Bocom\Request\AbstractH5Request;
@@ -18,7 +17,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
  * @method string getFeeType()
  *
  */
-class BocomNotifyResponse extends BaseDto implements ResponseContract, NotifyResponseContract
+class BocomNotifyResponse extends BaseDto implements ResponseContract
 {
 
     private $request;
